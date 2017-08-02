@@ -11,7 +11,7 @@ mv tmux.conf ~/.tmux.conf
 mv bash_profile ~/.bash_profile
 ```
 
-## What's in here
+## VIM
 
 I use [vim-plug](https://github.com/junegunn/vim-plug) to manage vim plugins.
 
@@ -34,3 +34,12 @@ To install all these, just:
 ```
 
 from vim.
+
+## Tmux
+
+I use [tpm](https://github.com/tmux-plugins/tpm) to manage tmux plugin(s)
+
+- tmux-plugins/tmux-yank
+
+See also:
+- [ChrisJohnsen/tmux-MacOSX-pasteboard](github.com/ChrisJohnsen/tmux-MacOSX-pasteboard)
