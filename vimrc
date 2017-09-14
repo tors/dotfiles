@@ -12,6 +12,7 @@ Plug 'itmammoth/doorboy.vim'
 Plug 'tpope/vim-commentary'
 Plug 'mattn/emmet-vim'
 Plug 'chemzqm/vim-jsx-improve'
+Plug 'tomlion/vim-solidity'
 call plug#end()
 
 " plugin configs
