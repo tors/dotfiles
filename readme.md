@@ -1,19 +1,24 @@
 # Dotfiles
 > vim + tmux is life
 
+![Screenshot](/ss.png)
+
 Extra-lightweight dotfile (vim, tmux, bash) setup with emphasis on Node, Javascript, Go development
 
 ## Setup
 
+Requirements:
+- vim
+- tmux
+- [vim-plug](https://github.com/junegunn/vim-plug)
+
 ```
-mv vimrc ~/.vimrc
-mv tmux.conf ~/.tmux.conf
-mv bash_profile ~/.bash_profile
+cp vimrc ~/.vimrc
+cp tmux.conf ~/.tmux.conf
+cat bash_profile >> ~/.bash_profile
 ```
 
-## VIM
-
-I use [vim-plug](https://github.com/junegunn/vim-plug) to manage vim plugins.
+## Vim plugins
 
 - scrooloose/nerdtree
 - fatih/vim-go
@@ -26,6 +31,8 @@ I use [vim-plug](https://github.com/junegunn/vim-plug) to manage vim plugins.
 - tpope/vim-commentary
 - mattn/emmet-vim
 - chemzqm/vim-jsx-improve
+- tomlion/vim-solidity
+- nightsense/seabird
 
 To install all these, just:
 
@@ -35,11 +42,15 @@ To install all these, just:
 
 from vim.
 
+## Colorscheme
+
+[seabird](https://github.com/nightsense/seabird) is a theme based on hue 204.
+
 ## Tmux
 
-I use [tpm](https://github.com/tmux-plugins/tpm) to manage tmux plugin(s)
+[tpm](https://github.com/tmux-plugins/tpm) manages tmux plugin(s)
 
 - tmux-plugins/tmux-yank
 
-See also:
+### Yanking from tmux in MacOS
 - [ChrisJohnsen/tmux-MacOSX-pasteboard](github.com/ChrisJohnsen/tmux-MacOSX-pasteboard)
