@@ -10,12 +10,25 @@ Plug 'itchyny/lightline.vim'
 Plug 'itmammoth/doorboy.vim'
 Plug 'tpope/vim-commentary'
 Plug 'mattn/emmet-vim'
-Plug 'chemzqm/vim-jsx-improve'
-Plug 'tomlion/vim-solidity'
-Plug 'nightsense/seabird'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'Quramy/tsuquyomi'
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'ayu-theme/ayu-vim'
+Plug 'prettier/vim-prettier'
 call plug#end()
 
-colorscheme seagull
+" dark theme
+" colorscheme palenight
+" let g:lightline = {'colorscheme': 'palenight'}
+"
+" light theme
+let ayucolor="light"  " for light version of theme
+colorscheme ayu
+
+if (has('termguicolors'))
+  set termguicolors
+endif
 
 " nerdtree
 map <C-n> :NERDTreeToggle<CR>

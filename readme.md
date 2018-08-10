@@ -3,7 +3,7 @@
 
 ![Screenshot](/ss.png)
 
-Extra-lightweight dotfile (vim, tmux, bash) setup with emphasis on Node, Javascript, Go development
+Extra-lightweight dotfile (vim, tmux, bash) setup for Node, Javascript, Typescript, and Go development
 
 ## Setup
 
@@ -12,10 +12,20 @@ Requirements:
 - tmux
 - [vim-plug](https://github.com/junegunn/vim-plug)
 
-```
+```sh
+# Backup your default configs if they exist
+cp ~/.vimrc ~/.vimrc_bkp
+cp ~/.tmux.conf ~/.tmux.conf_bkp
+
 cp vimrc ~/.vimrc
 cp tmux.conf ~/.tmux.conf
 cat bash_profile >> ~/.bash_profile
+```
+
+In vim:
+
+```sh
+:PlugInstall
 ```
 
 ## Vim plugins
@@ -26,25 +36,16 @@ cat bash_profile >> ~/.bash_profile
 - sbdchd/neoformat
 - tpope/vim-fugitive
 - itchyny/lightline.vim
-- chriskempson/base16-vim
 - itmammoth/doorboy.vim
 - tpope/vim-commentary
 - mattn/emmet-vim
-- chemzqm/vim-jsx-improve
+- pangloss/vim-javascript
+- mxw/vim-jsx
 - tomlion/vim-solidity
-- nightsense/seabird
-
-To install all these, just:
-
-```
-:PlugInstall
-```
-
-from vim.
-
-## Colorscheme
-
-[seabird](https://github.com/nightsense/seabird) is a theme based on hue 204.
+- dart-lang/dart-vim-plugin
+- prettier/vim-prettier
+- drewtempelmeyer/palenight.vim
+- ayu-theme/ayu-vim
 
 ## Tmux
 
