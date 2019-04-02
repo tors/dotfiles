@@ -28,25 +28,6 @@ In vim:
 :PlugInstall
 ```
 
-## Vim plugins
-
-- scrooloose/nerdtree
-- fatih/vim-go
-- ctrlpvim/ctrlp.vim
-- sbdchd/neoformat
-- tpope/vim-fugitive
-- itchyny/lightline.vim
-- itmammoth/doorboy.vim
-- tpope/vim-commentary
-- mattn/emmet-vim
-- pangloss/vim-javascript
-- mxw/vim-jsx
-- tomlion/vim-solidity
-- dart-lang/dart-vim-plugin
-- prettier/vim-prettier
-- drewtempelmeyer/palenight.vim
-- ayu-theme/ayu-vim
-
 ## Tmux
 
 [tpm](https://github.com/tmux-plugins/tpm) manages tmux plugin(s)

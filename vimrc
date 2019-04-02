@@ -1,35 +1,62 @@
 set encoding=utf-8
 
 call plug#begin()
+" working with files
+Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'fatih/vim-go'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'sbdchd/neoformat'
-Plug 'tpope/vim-fugitive'
+
+" status
 Plug 'itchyny/lightline.vim'
+Plug 'edkolev/tmuxline.vim'
+
+" formatting
 Plug 'itmammoth/doorboy.vim'
+Plug 'sbdchd/neoformat'
 Plug 'tpope/vim-commentary'
-Plug 'mattn/emmet-vim'
-Plug 'pangloss/vim-javascript'
+
+" git
+Plug 'tpope/vim-fugitive'
+
+" js
 Plug 'mxw/vim-jsx'
-Plug 'Quramy/tsuquyomi'
-Plug 'leafgarland/typescript-vim'
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'ayu-theme/ayu-vim'
+Plug 'pangloss/vim-javascript'
 Plug 'prettier/vim-prettier'
+
+" typescript
+Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi'
+
+" html & css
+Plug 'mattn/emmet-vim'
+
+" golang
+Plug 'mdempsky/gocode', {'rtp': 'vim/'}
+Plug 'fatih/vim-go'
+
+" themes
+Plug 'connorholyday/vim-snazzy'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
 call plug#end()
 
 " dark theme
-" colorscheme palenight
-" let g:lightline = {'colorscheme': 'palenight'}
-"
-" light theme
-let ayucolor="light"  " for light version of theme
-colorscheme ayu
+" let g:lightline = {'colorscheme': 'snazzy'}
+" colorscheme snazzy
 
-if (has('termguicolors'))
-  set termguicolors
-endif
+" light theme
+let g:lightline = {'colorscheme': 'onehalfdark'}
+colorscheme onehalfdark
+
+hi Comment gui=italic cterm=italic
+hi htmlArg gui=italic cterm=italic
+
+set t_ut=
+
+" forces true colour on.
+" https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
 
 " nerdtree
 map <C-n> :NERDTreeToggle<CR>
@@ -96,3 +123,8 @@ autocmd BufWritePre *.go Neoformat goimports
 set nobackup
 set nowritebackup
 set dir=~/.vimswap//,/var/tmp//,/tmp//,
+
+" devicons
+let g:WebDevIconsNerdTreeBeforeGlyphPadding = ""
+let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
+
