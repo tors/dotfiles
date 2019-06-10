@@ -26,6 +26,9 @@ Plug 'prettier/vim-prettier'
 " typescript
 Plug 'leafgarland/typescript-vim'
 Plug 'Quramy/tsuquyomi'
+Plug 'Quramy/vim-js-pretty-template'
+Plug 'peitalin/vim-jsx-typescript'
+
 
 " html & css
 Plug 'mattn/emmet-vim'
