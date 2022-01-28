@@ -3,7 +3,7 @@
 
 ![Screenshot](/ss.png)
 
-Extra-lightweight dotfile (vim, tmux, zsh) setup for Node, Javascript, Typescript, and Go development
+Extra-lightweight dotfile (vim, tmux, zsh) setup for Node, Javascript, Typescript, Go, and Solidity development
 
 ## Setup
 
@@ -16,7 +16,7 @@ Requirements:
 
 ## Install
 
-```
+```sh
 brew install romkatv/powerlevel10k/powerlevel10k
 echo "source $(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme" >>~/.zshrc
 brew install tmux
@@ -35,6 +35,3 @@ cp p10k.zsh ~/.p10k.zsh
 ```sh
 :PlugInstall
 ```
-
-### Yanking from tmux in MacOS
-- [ChrisJohnsen/tmux-MacOSX-pasteboard](github.com/ChrisJohnsen/tmux-MacOSX-pasteboard)

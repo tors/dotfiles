@@ -11,7 +11,8 @@ Plug 'jreybert/vimagit'
 Plug 'mattn/emmet-vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
-Plug 'wimstefan/Lightning'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'TovarishFin/vim-solidity'
 call plug#end()
 
 " coc.vim
@@ -70,6 +71,5 @@ set nobackup
 set nowritebackup
 set dir=~/.vimswap//,/var/tmp//,/tmp//,
 
-colorscheme lightning
-" let g:github_colors_soft=1
-" set background=light
+set background=light
+colorscheme PaperColor
