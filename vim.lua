@@ -113,8 +113,20 @@ vim.api.nvim_create_autocmd('LspAttach', {
 require('mason').setup({})
 require('mason-lspconfig').setup({})
 local lspconfig = require('lspconfig')
-lspconfig.tsserver.setup({})
+
+lspconfig.ts_ls.setup({})
+lspconfig.biome.setup({})
 lspconfig.gopls.setup({})
+lspconfig.astro.setup({})
+lspconfig.solidity_ls_nomicfoundation.setup({})
+
+require('telescope').setup({ 
+  defaults = { 
+    file_ignore_patterns = { 
+      'node_modules'
+    }
+  }
+})
 
 require('nvim-tree').setup({
   on_attach = function(bufnr)
@@ -142,7 +154,7 @@ require('bluloco').setup({
 vim.opt.termguicolors = true
 vim.cmd('colorscheme bluloco')
 
-vim.g.mapleader = ' '
+vim.g.mapleader = ','
 
 -- Navigate between split windows using Ctrl + Arrow keys
 vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
