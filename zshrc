@@ -104,3 +104,5 @@ mcommit=(
     "༼∵༽ ༼⍨༽ ༼⍢༽ ༼⍤༽"
 )
 alias cm='git commit -m "$mcommit[$(( $RANDOM % $#mcommit+1 ))]"'
+
+alias ds='find . -name ". DS_Store" -type f -delete'

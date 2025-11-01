@@ -1,37 +1,30 @@
-lazy = {}
-
-function lazy.install(path)
-  if not vim.loop.fs_stat(path) then
-    print('Installing lazy.nvim....')
-    vim.fn.system({
-      'git',
-      'clone',
-      '--filter=blob:none',
-      'https://github.com/folke/lazy.nvim.git',
-      '--branch=stable', -- latest stable release
-      path,
-    })
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
   end
 end
+vim.opt.rtp:prepend(lazypath)
 
-function lazy.setup(plugins)
-  if vim.g.plugins_ready then
-    return
-  end
-  -- You can "comment out" the line below after lazy.nvim is installed
-  -- lazy.install(lazy.path)
-  vim.opt.rtp:prepend(lazy.path)
-  require('lazy').setup(plugins, lazy.opts)
-  vim.g.plugins_ready = true
-end
+vim.lsp.enable('biome')
+vim.lsp.enable('ts_ls')
+vim.lsp.enable('gopls')
+vim.lsp.enable('copilot')
 
-lazy.path = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-lazy.opts = {}
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
-lazy.setup({
-  {'neovim/nvim-lspconfig'},             -- LSP configurations
-  {'williamboman/mason.nvim'},           -- Installer for external tools
-  {'williamboman/mason-lspconfig.nvim'}, -- mason extension for lspconfig
+require('lazy').setup({
+  {'github/copilot.vim'},
+  {'neovim/nvim-lspconfig'},
   {'nvim-tree/nvim-tree.lua'},
   {'nvim-lua/plenary.nvim'},
   {'nvim-telescope/telescope.nvim'},
@@ -39,17 +32,28 @@ lazy.setup({
   {'tpope/vim-fugitive'},
   {'mattn/emmet-vim'},
   {'nvim-tree/nvim-web-devicons'},
-  {'github/copilot.vim'},
-  {'rktjmp/lush.nvim'},
   {
-    'uloco/bluloco.nvim',
-    lazy = false,
-    priority = 1000,
-    dependencies = { 'rktjmp/lush.nvim' }
+    'sphamba/smear-cursor.nvim',
+    opts = {
+      stiffness = 0.8,               -- 0.6      [0, 1]
+      trailing_stiffness = 0.5,      -- 0.3      [0, 1]
+      distance_stop_animating = 0.5, -- 0.1      > 0
+      cursor_color = "#ff8800",
+    }
   },
+  {'rktjmp/lush.nvim'},
+  {'HerringtonDarkholme/yats.vim'},
+  {'catppuccin/nvim', name = 'catppuccin', priority = 1000},
+  {'EdenEast/nightfox.nvim'},
   {
     'folke/trouble.nvim',
-    opts = {},
+    opts = {
+      win = {
+        wo = {
+          wrap = true,
+        },
+      },
+    },
     cmd = 'Trouble',
     keys = {
       {
@@ -86,8 +90,6 @@ lazy.setup({
   }
 })
 
-vim.cmd.colorscheme('bluloco')
-
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP actions',
   callback = function()
@@ -110,20 +112,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
-require('mason').setup({})
-require('mason-lspconfig').setup({})
-local lspconfig = require('lspconfig')
-
-lspconfig.ts_ls.setup({})
-lspconfig.biome.setup({})
-lspconfig.gopls.setup({})
-lspconfig.astro.setup({})
-lspconfig.solidity_ls_nomicfoundation.setup({})
-
 require('telescope').setup({ 
   defaults = { 
     file_ignore_patterns = { 
-      'node_modules'
+      'node_modules',
+      '.git',
+      'dist',
+      'build',
+      'vendor',
+      '%.lock',
+      '%.sqlite3',
     }
   }
 })
@@ -141,20 +139,14 @@ require('nvim-tree').setup({
   end,
   view = {
     adaptive_size = true,
+    width = {
+      min = 26,
+      max = 50,
+    },
   },
 })
 
-require('bluloco').setup({
-  style = "light",
-  transparent = false,
-  italics = false,
-  terminal = vim.fn.has("gui_running") == 1,
-  guicursor   = true,
-})
-vim.opt.termguicolors = true
-vim.cmd('colorscheme bluloco')
-
-vim.g.mapleader = ','
+vim.cmd('colorscheme catppuccin-latte')
 
 -- Navigate between split windows using Ctrl + Arrow keys
 vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
@@ -172,27 +164,4 @@ vim.opt.expandtab = true
 vim.opt.backspace = 'indent,eol,start'
 vim.opt.guicursor = 'n-v-c-i:block'
 vim.opt.autoread = true
-
--- Go imports and formatting
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.go",
-  callback = function()
-    local params = vim.lsp.util.make_range_params()
-    params.context = {only = {"source.organizeImports"}}
-    -- buf_request_sync defaults to a 1000ms timeout. Depending on your
-    -- machine and codebase, you may want longer. Add an additional
-    -- argument after params if you find that you have to write the file
-    -- twice for changes to be saved.
-    -- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
-    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
-    for cid, res in pairs(result or {}) do
-      for _, r in pairs(res.result or {}) do
-        if r.edit then
-          local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
-          vim.lsp.util.apply_workspace_edit(r.edit, enc)
-        end
-      end
-    end
-    vim.lsp.buf.format({async = false})
-  end
-})
+vim.opt.backupcopy = 'yes'
